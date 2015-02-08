@@ -1,3 +1,13 @@
+### Server ###
+
+# Python compiled files
+*.pyc
+
+# Local configuration files
+server/lib/
+
+### Android ###
+
 # Built application files
 *.apk
 *.ap_
