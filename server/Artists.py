@@ -9,7 +9,6 @@ def get_artists():
     return jsonify({ 'success': False, 'message': 'name not specified.' })    
 
   artists = spotify.get_artists_by_name(request.args['name'])
-
   if artists == None:
     return jsonify({ 'success': False, 'message': 'unexpected error occurred.' })
 
@@ -21,7 +20,6 @@ def get_artists_genre():
     return jsonify({ 'success': False, 'message': 'name not specified.' })    
 
   artists = echonest.get_artists_by_genre(request.args['name'])
-
   if artists == None:
     return jsonify({ 'success': False, 'message': 'unexpected error occurred.' })
 
@@ -36,7 +34,6 @@ def get_artists_similar():
     return jsonify({ 'success': False, 'message': 'spotify_id not specified.' })    
 
   artists = spotify.get_artists_by_relation(request.args['spotify_id'])
-
   if artists == None:
     return jsonify({ 'success': False, 'message': 'unexpected error occurred.' })
 

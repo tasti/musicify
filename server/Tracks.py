@@ -9,7 +9,6 @@ def get_tracks_artist():
     return jsonify({ 'success': False, 'message': 'spotify_id not specified.' })    
 
   tracks = spotify.get_tracks_by_artist_id(request.args['spotify_id'])
-
   if tracks == None:
     return jsonify({ 'success': False, 'message': 'unexpected error occurred.' })
 

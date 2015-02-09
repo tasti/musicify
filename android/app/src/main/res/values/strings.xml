@@ -4,7 +4,11 @@
     <string name="app_name">Musicify</string>
     <string name="title_activity_sign_in">Sign In</string>
     <string name="title_activity_register">Register</string>
+    <string name="title_activity_recommended_artists">Recommended Artists</string>
+    <string name="action_sign_out">Sign Out</string>
 
     <string name="username">Username</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

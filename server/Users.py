@@ -9,9 +9,8 @@ class User(ndb.Model):
 @users_api.route('/<username>', methods=['GET'])
 def get_user(username):
   user = User.query(User.username == username).get()
-
   if user != None:
-    return jsonify({ 'success': True, 'user': user.to_dict() })
+    return jsonify({ 'success': True, 'item': user.to_dict() })
 
   return jsonify({ 'success': False, 'message': '%s is not a user.' % username })
 
@@ -24,7 +23,11 @@ def get_users():
 @users_api.route('', methods=['POST'])
 def post_user():
   if 'username' not in request.json:
-    return jsonify({ 'success': False, 'message': 'username not specified.' })    
+    return jsonify({ 'success': False, 'message': 'username not specified.' })
+
+  user = User.query(User.username == request.json['username']).get()
+  if user != None:
+    return jsonify({ 'success': False, 'message': '%s is already a user.' % user.username })
 
   user = User(username=request.json['username'])
   user.put()
