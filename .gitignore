@@ -35,3 +35,7 @@ proguard/
 
 # Log Files
 *.log
+
+### Other ###
+
+server/echonest_api_key.txt

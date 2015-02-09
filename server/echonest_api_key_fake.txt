@@ -1,0 +1,4 @@
+# 1. Replace ECHONEST_API_KEY with your echonest api key
+# 2. Rename this file to echonest_api_key.txt
+# 3. Remove these comments
+ECHONEST_API_KEY

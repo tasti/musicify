@@ -1,47 +1,43 @@
-from flask import Blueprint, request, jsonify
-from google.appengine.ext import ndb
-import spotify
+from flask import Blueprint, jsonify, request
+import echonest, spotify
 
 artists_api = Blueprint('artists_api', __name__)
 
-class Artist(ndb.Model):
-  image_large_url = ndb.StringProperty(required=True)
-  image_small_url = ndb.StringProperty(required=True)
-  name = ndb.StringProperty(required=True)
-  popularity = ndb.IntegerProperty(required=True)
-  spotify_id = ndb.StringProperty(required=True)
-
-@artists_api.route('/<name>', methods=['GET'])
-def get_artist(name):
-  artist = Artist.query(Artist.name == name).get()
-
-  if artist != None:
-    return jsonify({ 'success': True, 'artist': artist.name })
-
-  return jsonify({ 'success': False, 'message': '%s is not an artist.' % name })
-
 @artists_api.route('', methods=['GET'])
 def get_artists():
-  artists = Artist.query().fetch()
-
-  return jsonify({ 'success': True, 'artists': [artist.to_dict() for artist in artists] })
-
-@artists_api.route('', methods=['POST'])
-def post_artist():
-  if 'name' not in request.json:
+  if 'name' not in request.args:
     return jsonify({ 'success': False, 'message': 'name not specified.' })    
 
-  artists = spotify.get_artists(request.json['name'])
+  artists = spotify.get_artists_by_name(request.args['name'])
 
   if artists == None:
     return jsonify({ 'success': False, 'message': 'unexpected error occurred.' })
-  
-  for a in artists:
-    artist = Artist(image_large_url=a['image_large_url'],
-                    image_small_url=a['image_small_url'],
-                    name=a['name'],
-                    popularity=a['popularity'],
-                    spotify_id=a['spotify_id'])
-    artist.put()
 
-  return jsonify({ 'success': True, 'message': '%d artist(s) with the name, %s, have been added.' % (len(artists), request.json['name']) })
+  return jsonify({ 'success': True, 'items': artists })
+
+@artists_api.route('/genre', methods=['GET'])
+def get_artists_genre():
+  if 'name' not in request.args:
+    return jsonify({ 'success': False, 'message': 'name not specified.' })    
+
+  artists = echonest.get_artists_by_genre(request.args['name'])
+
+  if artists == None:
+    return jsonify({ 'success': False, 'message': 'unexpected error occurred.' })
+
+  # We want the spotify equivalent data of the artists
+  artists = spotify.get_artists_by_id([artist['spotify_id'] for artist in artists])
+
+  return jsonify({ 'success': True, 'items': artists })
+
+@artists_api.route('/related', methods=['GET'])
+def get_artists_similar():
+  if 'spotify_id' not in request.args:
+    return jsonify({ 'success': False, 'message': 'spotify_id not specified.' })    
+
+  artists = spotify.get_artists_by_relation(request.args['spotify_id'])
+
+  if artists == None:
+    return jsonify({ 'success': False, 'message': 'unexpected error occurred.' })
+
+  return jsonify({ 'success': True, 'items': artists })
