@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.zakarie.musicify.api.GetUserResponse;
 import com.zakarie.musicify.util.Helper;
 import com.zakarie.musicify.api.MusicifyResponse;
 import com.zakarie.musicify.api.MusicifyService;
@@ -53,7 +54,9 @@ public class SignInActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void signIn(View view) {
+    public void signIn(final View view) {
+        view.setEnabled(false);
+
         final String username = signInUsername.getText().toString();
 
         if (!Helper.isValidUsername(username)) {
@@ -61,23 +64,27 @@ public class SignInActivity extends Activity {
             return;
         }
 
-        musicify.getUser(username, new Callback<MusicifyResponse>() {
+        musicify.getUser(username, new Callback<GetUserResponse>() {
             @Override
-            public void success(MusicifyResponse musicifyResponse, Response response) {
-                if (musicifyResponse.success) {
-                    Session.signIn(username, getApplicationContext());
+            public void success(GetUserResponse getUserResponse, Response response) {
+                if (getUserResponse.success) {
+                    Session.signIn(getUserResponse.item.username, getApplicationContext());
 
                     Intent intent = new Intent(getApplicationContext(), RecommendedArtistsActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getApplicationContext(), musicifyResponse.message, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getUserResponse.message, Toast.LENGTH_LONG).show();
+
+                    view.setEnabled(true);
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+
+                view.setEnabled(true);
             }
         });
     }

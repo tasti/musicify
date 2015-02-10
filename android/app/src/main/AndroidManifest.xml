@@ -43,6 +43,11 @@
             android:label="@string/title_activity_recommended_artists" >
         </activity>
 
+        <activity
+            android:name=".activity.GenreActivity"
+            android:label="@string/title_activity_genre" >
+        </activity>
+
     </application>
 
 </manifest>

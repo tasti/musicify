@@ -54,7 +54,9 @@ public class RegisterActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void register(View view) {
+    public void register(final View view) {
+        view.setEnabled(false);
+
         final String username = registerUsername.getText().toString();
 
         if (!Helper.isValidUsername(username)) {
@@ -65,19 +67,27 @@ public class RegisterActivity extends Activity {
         musicify.postUser(new PostUserRequest(username), new Callback<MusicifyResponse>() {
             @Override
             public void success(MusicifyResponse musicifyResponse, Response response) {
-                Toast.makeText(getApplicationContext(), musicifyResponse.message, Toast.LENGTH_LONG).show();
 
                 if (musicifyResponse.success) {
-                    Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                    Toast.makeText(getApplicationContext(), musicifyResponse.message, Toast.LENGTH_LONG).show();
+
+                    Session.signIn(username, getApplicationContext());
+
+                    Intent intent = new Intent(getApplicationContext(), RecommendedArtistsActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 } else {
-                    // Do nothing
+                    Toast.makeText(getApplicationContext(), musicifyResponse.message, Toast.LENGTH_LONG).show();
+
+                    view.setEnabled(true);
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+
+                view.setEnabled(true);
             }
         });
     }

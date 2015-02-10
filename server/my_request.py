@@ -9,7 +9,7 @@ def get(url, ssl=False):
   else:
     conn = httplib.HTTPConnection(HOST)
   
-  conn.request('GET', url)
+  conn.request('GET', url.replace(' ', '%20'))
   response = conn.getresponse()
 
   if response.status != 200:

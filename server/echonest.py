@@ -28,7 +28,8 @@ def _cleanup_artists(artists):
   return artists
 
 def get_genres():
-  return _get('%s/genre/list?api_key=%s&format=json' % (ECHONEST_API, ECHONEST_API_KEY), _cleanup_genres)
+  # Leaving results blank isn't giving all the results, hence set to 2000
+  return _get('%s/genre/list?api_key=%s&format=json&results=2000' % (ECHONEST_API, ECHONEST_API_KEY), _cleanup_genres)
 
 def get_artists_by_genre(genre):
   return _get('%s/genre/artists?api_key=%s&format=json&name=%s&bucket=id:spotify' % (ECHONEST_API, ECHONEST_API_KEY, genre), _cleanup_artists)

@@ -23,6 +23,7 @@ def _cleanup_artist(artist):
     artist['image_url_medium'] = images[len(images) - 2]['url'] # Assuming image size always in correct position
     artist['image_url_small'] = images[len(images) - 1]['url'] # Assuming image size always in correct position
   
+  artist['spotify_id'] = artist.pop('id', None)
   artist.pop('type', None)
   artist.pop('uri', None)
 
@@ -45,6 +46,7 @@ def _cleanup_track(track):
   track.pop('external_ids', None)
   track.pop('external_urls', None)
   track.pop('href', None)
+  track['spotify_id'] = track.pop('id', None)
   track.pop('track_number', None)
   track.pop('type', None)
   track.pop('uri', None)

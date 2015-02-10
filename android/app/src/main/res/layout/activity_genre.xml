@@ -5,16 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_margin"
-    tools:context=".activity.RecommendedArtistsActivity" >
+    tools:context=".activity.GenreActivity" >
 
     <ProgressBar
-        android:id="@+id/raa_progress_bar"
+        android:id="@+id/ga_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
     <ListView
-        android:id="@+id/suggestions"
+        android:id="@+id/genres"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
