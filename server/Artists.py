@@ -33,12 +33,9 @@ def get_artists_genre():
 
   return jsonify({ 'success': True, 'items': artists })
 
-@artists_api.route('/related', methods=['GET'])
-def get_artists_similar():
-  if 'spotify_id' not in request.args:
-    return jsonify({ 'success': False, 'message': 'spotify_id not specified.' })    
-
-  artists = spotify.get_artists_by_relation(request.args['spotify_id'])
+@artists_api.route('/related/<spotify_id>', methods=['GET'])
+def get_artists_similar(spotify_id):
+  artists = spotify.get_artists_by_relation(spotify_id)
   if artists == None:
     return jsonify({ 'success': False, 'message': 'unexpected error occurred.' })
 

@@ -1,4 +1,6 @@
-package com.zakarie.musicify.api;
+package com.zakarie.musicify.api.response;
+
+import com.zakarie.musicify.api.object.Genre;
 
 import java.util.List;
 

@@ -9,22 +9,23 @@ import android.widget.TextView;
 
 import com.zakarie.musicify.R;
 import com.zakarie.musicify.api.object.Artist;
+import com.zakarie.musicify.api.object.Track;
 
 import java.util.List;
 
-public class ArtistAdapter extends ArrayAdapter<Artist> {
+public class TrackAdapter extends ArrayAdapter<Track> {
 
     private Context context;
     private int layout;
 
-    private List<Artist> artists;
+    private List<Track> tracks;
 
-    public ArtistAdapter(Context context, int layout, List<Artist> artists) {
-        super(context, layout, artists);
+    public TrackAdapter(Context context, int layout, List<Track> tracks) {
+        super(context, layout, tracks);
 
         this.context = context;
         this.layout = layout;
-        this.artists = artists;
+        this.tracks = tracks;
     }
 
     @Override
@@ -34,10 +35,10 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
             artistView = LayoutInflater.from(context).inflate(layout, parent, false);
         }
 
-        Artist artist = artists.get(position);
+        Track track = tracks.get(position);
 
-        TextView type = (TextView) artistView.findViewById(R.id.artist);
-        type.setText(artist.name);
+        TextView type = (TextView) artistView.findViewById(R.id.genre);
+        type.setText(track.name);
 
         return artistView;
     }

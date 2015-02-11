@@ -9,9 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.zakarie.musicify.api.GetUserResponse;
+import com.zakarie.musicify.api.response.GetUserResponse;
 import com.zakarie.musicify.util.Helper;
-import com.zakarie.musicify.api.MusicifyResponse;
 import com.zakarie.musicify.api.MusicifyService;
 import com.zakarie.musicify.R;
 import com.zakarie.musicify.util.Session;

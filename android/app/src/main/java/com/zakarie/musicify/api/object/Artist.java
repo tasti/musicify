@@ -1,4 +1,4 @@
-package com.zakarie.musicify.api;
+package com.zakarie.musicify.api.object;
 
 public class Artist {
 

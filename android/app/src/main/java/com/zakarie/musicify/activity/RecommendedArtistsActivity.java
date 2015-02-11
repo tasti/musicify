@@ -13,11 +13,12 @@ import android.widget.Toast;
 
 import com.zakarie.musicify.R;
 import com.zakarie.musicify.adapter.SuggestionAdapter;
-import com.zakarie.musicify.api.GetSuggestionsResponse;
-import com.zakarie.musicify.api.GetUserResponse;
-import com.zakarie.musicify.api.MusicifyResponse;
+import com.zakarie.musicify.api.response.GetSuggestionsResponse;
+import com.zakarie.musicify.api.response.GetUserResponse;
+import com.zakarie.musicify.api.response.MusicifyResponse;
 import com.zakarie.musicify.api.MusicifyService;
-import com.zakarie.musicify.api.PutUserSuggestionRequest;
+import com.zakarie.musicify.api.request.PutUserSuggestionRequest;
+import com.zakarie.musicify.api.object.Suggestion;
 import com.zakarie.musicify.util.Session;
 
 import butterknife.ButterKnife;
@@ -29,6 +30,10 @@ import retrofit.client.Response;
 
 
 public class RecommendedArtistsActivity extends Activity {
+
+    public final static String EXTRA_ARTIST_NAME = "com.zakarie.musicify.ARTIST_NAME";
+    public final static String EXTRA_ARTIST_SPOTIFY_ID = "com.zakarie.musicify.ARTIST_SPOTIFY_ID";
+    public final static String EXTRA_ARTIST_IMAGE_URL = "com.zakarie.musicify.ARTIST_IMAGE_URL";
 
     @InjectView(R.id.raa_progress_bar) ProgressBar progressBar;
     @InjectView(R.id.suggestions) ListView suggestions;
@@ -131,18 +136,13 @@ public class RecommendedArtistsActivity extends Activity {
     private AdapterView.OnItemClickListener suggestionsOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            musicify.putSuggestion(Session.getCurrentUser(getApplicationContext()),
-                    new PutUserSuggestionRequest(adapter.getItem(position).artist.spotify_id), new Callback<MusicifyResponse>() {
-                @Override
-                public void success(MusicifyResponse musicifyResponse, Response response) {
-                    Toast.makeText(getApplicationContext(), musicifyResponse.message, Toast.LENGTH_LONG).show();
-                }
+            final Suggestion suggestion = adapter.getItem(position);
 
-                @Override
-                public void failure(RetrofitError error) {
-                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
+            Intent intent = new Intent(getApplicationContext(), ArtistActivity.class);
+            intent.putExtra(EXTRA_ARTIST_NAME, suggestion.artist.name);
+            intent.putExtra(EXTRA_ARTIST_SPOTIFY_ID, suggestion.artist.spotify_id);
+            intent.putExtra(EXTRA_ARTIST_IMAGE_URL, suggestion.artist.image_url_medium);
+            startActivity(intent);
         }
     };
 

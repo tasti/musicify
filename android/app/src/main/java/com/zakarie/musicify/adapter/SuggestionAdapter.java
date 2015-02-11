@@ -1,7 +1,6 @@
 package com.zakarie.musicify.adapter;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.zakarie.musicify.R;
-import com.zakarie.musicify.api.Artist;
-import com.zakarie.musicify.api.Genre;
-import com.zakarie.musicify.api.Suggestion;
+import com.zakarie.musicify.api.object.Suggestion;
 
 import java.util.List;
 

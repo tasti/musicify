@@ -1,5 +1,15 @@
 package com.zakarie.musicify.api;
 
+import com.zakarie.musicify.api.request.PostUserRequest;
+import com.zakarie.musicify.api.request.PutUserGenreRequest;
+import com.zakarie.musicify.api.request.PutUserSuggestionRequest;
+import com.zakarie.musicify.api.response.GetGenresResponse;
+import com.zakarie.musicify.api.response.GetRelatedResponse;
+import com.zakarie.musicify.api.response.GetSuggestionsResponse;
+import com.zakarie.musicify.api.response.GetTracksResponse;
+import com.zakarie.musicify.api.response.GetUserResponse;
+import com.zakarie.musicify.api.response.MusicifyResponse;
+
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -29,5 +39,11 @@ public interface MusicifyService {
 
     @GET(API_V1 + "/genres")
     void getGenres(Callback<GetGenresResponse> cb);
+
+    @GET(API_V1 + "/tracks/artist/{spotify_id}")
+    void getTracks(@Path("spotify_id") String spotify_id, Callback<GetTracksResponse> cb);
+
+    @GET(API_V1 + "/artists/related/{spotify_id}")
+    void getRelated(@Path("spotify_id") String spotify_id, Callback<GetRelatedResponse> cb);
 
 }

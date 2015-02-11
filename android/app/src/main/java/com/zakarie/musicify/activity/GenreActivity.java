@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import com.zakarie.musicify.R;
 import com.zakarie.musicify.adapter.GenreAdapter;
-import com.zakarie.musicify.api.GetGenresResponse;
-import com.zakarie.musicify.api.MusicifyResponse;
+import com.zakarie.musicify.api.response.GetGenresResponse;
+import com.zakarie.musicify.api.response.MusicifyResponse;
 import com.zakarie.musicify.api.MusicifyService;
-import com.zakarie.musicify.api.PutUserGenreRequest;
+import com.zakarie.musicify.api.request.PutUserGenreRequest;
 import com.zakarie.musicify.util.Session;
 
 import butterknife.ButterKnife;

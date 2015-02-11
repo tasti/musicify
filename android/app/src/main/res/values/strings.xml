@@ -7,9 +7,12 @@
     <string name="title_activity_recommended_artists">Recommended Artists</string>
     <string name="title_activity_genre">Pick a genre</string>
     <string name="action_sign_out">Sign Out</string>
+    <string name="action_search">Search</string>
 
     <string name="username">Username</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_artist">ArtistActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

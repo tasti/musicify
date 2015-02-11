@@ -1,4 +1,6 @@
-package com.zakarie.musicify.api;
+package com.zakarie.musicify.api.request;
+
+import com.zakarie.musicify.api.request.MusicifyRequest;
 
 public class PostUserRequest extends MusicifyRequest {
 
